@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.example.listsample.R
@@ -19,9 +20,7 @@ class DetailFragment : BaseNavigationFragment(R.layout.fragment_detail) {
     lateinit var detailFragmentBinding: FragmentDetailBinding
     private val args: DetailFragmentArgs by navArgs()
 
-    private val mainViewModel: MainViewModel by navGraphViewModels(R.id.mainFragment) {
-        defaultViewModelProviderFactory
-    }
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,23 +28,18 @@ class DetailFragment : BaseNavigationFragment(R.layout.fragment_detail) {
         savedInstanceState: Bundle?
     ): View {
         detailFragmentBinding = FragmentDetailBinding.inflate(inflater, container, false).apply {
-            vm = mainViewModel
-            documentsData = mainViewModel.bookData.value?.get(args.position)
+            vm = viewModel
+            documentsData = viewModel.bookData.value?.get(args.position)
             lifecycleOwner = this@DetailFragment
 
             executePendingBindings()
         }
 
         detailFragmentBinding.detailBookLike.setOnClickListener {
-            val isLike = mainViewModel.bookData.value?.get(args.position)?.isLike!!
+            viewModel.bookData.value?.get(args.position)?.isLike = viewModel.bookData.value?.get(args.position)?.isLike?.not()!!
 
-            if (isLike) {
-                it.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.gray))
-            } else {
-                it.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.purple_700))
-            }
-
-            mainViewModel.bookData.value?.get(args.position)?.isLike = !isLike
+            detailFragmentBinding.documentsData = viewModel.bookData.value?.get(args.position)
+            detailFragmentBinding.executePendingBindings()
         }
 
         return detailFragmentBinding.root
