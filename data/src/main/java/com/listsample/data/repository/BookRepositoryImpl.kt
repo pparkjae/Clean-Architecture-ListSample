@@ -1,6 +1,5 @@
 package com.listsample.data.repository
 
-import androidx.paging.ExperimentalPagingApi
 import com.listsample.data.api.BookApi
 import com.listsample.data.exception.EmptyResultException
 import com.listsample.data.exception.NetworkException
@@ -14,7 +13,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-@ExperimentalPagingApi
 class BookRepositoryImpl @Inject constructor(
     private val bookApi: BookApi
 ) : BookRepository {

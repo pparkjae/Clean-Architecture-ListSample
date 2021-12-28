@@ -1,6 +1,5 @@
 package com.listsample.data.di
 
-import androidx.paging.ExperimentalPagingApi
 import com.listsample.data.api.BookApi
 import com.listsample.data.repository.BookRepositoryImpl
 import com.listsample.domain.repository.BookRepository
@@ -14,7 +13,6 @@ import javax.inject.Singleton
 @Module
 class RepositoryModule {
 
-    @ExperimentalPagingApi
     @Provides
     @Singleton
     fun provideBookRepository(api: BookApi): BookRepository {
