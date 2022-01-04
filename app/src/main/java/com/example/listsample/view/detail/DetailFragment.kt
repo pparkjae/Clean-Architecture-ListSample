@@ -29,16 +29,16 @@ class DetailFragment : BaseNavigationFragment(R.layout.fragment_detail) {
     ): View {
         detailFragmentBinding = FragmentDetailBinding.inflate(inflater, container, false).apply {
             vm = viewModel
-            documentsData = viewModel.bookData.value?.get(args.position)
+            documentsData = viewModel.bookData[args.position]
             lifecycleOwner = this@DetailFragment
 
             executePendingBindings()
         }
 
         detailFragmentBinding.detailBookLike.setOnClickListener {
-            viewModel.bookData.value?.get(args.position)?.isLike = viewModel.bookData.value?.get(args.position)?.isLike?.not()!!
+            viewModel.bookData[args.position].isLike = viewModel.bookData[args.position].isLike.not()
 
-            detailFragmentBinding.documentsData = viewModel.bookData.value?.get(args.position)
+            detailFragmentBinding.documentsData = viewModel.bookData[args.position]
             detailFragmentBinding.executePendingBindings()
         }
 

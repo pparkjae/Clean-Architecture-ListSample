@@ -20,7 +20,10 @@ class BookRepositoryImpl @Inject constructor(
         const val SIZE = 50
     }
 
-    override fun getSearchBook(searchText: String, pageNum: Int) = flow {
+    override suspend fun getSearchBook(
+        searchText: String,
+        pageNum: Int
+    ) = flow {
         val response: BookResponse = bookApi.searchBook(searchText, pageNum, SIZE)
 
         if (response.metaData.totalCount != 0) {

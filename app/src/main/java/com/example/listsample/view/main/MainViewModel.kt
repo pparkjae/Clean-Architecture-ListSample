@@ -1,7 +1,5 @@
 package com.example.listsample.view.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.listsample.domain.entity.DocumentsData
@@ -14,12 +12,11 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val bookUseCase: BookUseCase) : ViewModel() {
     val searchText = MutableStateFlow("")
-    private var _bookData = MutableLiveData(emptyList<DocumentsData>())
-    val bookData: LiveData<List<DocumentsData>> = _bookData
+    val bookData = mutableListOf<DocumentsData>()
 
-    private val _resultState =
+    private val resultStatePrivate =
         MutableStateFlow<NetworkStatus<List<DocumentsData>>>(NetworkStatus.Success(null))
-    val resultState: StateFlow<NetworkStatus<List<DocumentsData>>> = _resultState
+    val resultState: StateFlow<NetworkStatus<List<DocumentsData>>> get() = resultStatePrivate
 
     suspend fun requestBook(pageNum: Int, pagingType: PagingType) =
         bookUseCase.getSearchBook(searchText.value, pageNum).stateIn(
@@ -29,30 +26,30 @@ class MainViewModel @Inject constructor(private val bookUseCase: BookUseCase) : 
         ).collect {
             when (it) {
                 is NetworkStatus.Success -> {
-                    it.data?.run {
+                    resultStatePrivate.value = NetworkStatus.Success(it.data?.run {
                         when (pagingType) {
                             PagingType.INITIALIZE -> {
-                                _bookData.value = documentList
+                                bookData.also { data ->
+                                    data.clear()
+                                    data.addAll(documentList)
+                                }
                             }
 
                             PagingType.APPEND -> {
-                                val result = _bookData.value?.toMutableList().also { data ->
-                                    data?.addAll(documentList)
+                                bookData.also { data ->
+                                    data.addAll(documentList)
                                 }
-                                _bookData.value = result
                             }
                         }
-                    }
-
-                    _resultState.value = NetworkStatus.Success(_bookData.value)
+                    })
                 }
 
                 is NetworkStatus.Loading -> {
-                    _resultState.value = NetworkStatus.Loading
+                    resultStatePrivate.value = NetworkStatus.Loading
                 }
 
                 is NetworkStatus.Error -> {
-                    _resultState.value = NetworkStatus.Error(it.throwable)
+                    resultStatePrivate.value = NetworkStatus.Error(it.throwable)
                 }
             }
 
