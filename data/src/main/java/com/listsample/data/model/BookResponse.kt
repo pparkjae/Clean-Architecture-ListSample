@@ -30,4 +30,4 @@ data class DocumentsDataResponse(
     @SerialName("sale_price") val salePrice: Int,
     @SerialName("thumbnail") val thumbnailUrl: String,
     @SerialName("status") val status: String,
-) : java.io.Serializable
+)
