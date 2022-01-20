@@ -1,18 +1,15 @@
 package com.listsample.data.repository
 
-import com.listsample.data.api.BookApi
-import com.listsample.data.exception.EmptyResultException
-import com.listsample.data.exception.NetworkException
-import com.listsample.data.mapper.BookEntityMapper
-import com.listsample.data.model.BookResponse
-import com.listsample.domain.entity.NetworkStatus
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import com.listsample.data.paging.BookPagingSource
+import com.listsample.data.remote.api.BookApi
 import com.listsample.domain.repository.BookRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+@ExperimentalPagingApi
 class BookRepositoryImpl @Inject constructor(
     private val bookApi: BookApi
 ) : BookRepository {
@@ -20,18 +17,12 @@ class BookRepositoryImpl @Inject constructor(
         const val SIZE = 50
     }
 
-    override suspend fun getSearchBook(
-        searchText: String,
-        pageNum: Int
-    ) = flow {
-        val response: BookResponse = bookApi.searchBook(searchText, pageNum, SIZE)
-
-        if (response.metaData.totalCount != 0) {
-            emit(NetworkStatus.Success(BookEntityMapper.mapperToBook(response)))
-        } else {
-            emit(NetworkStatus.Error(EmptyResultException()))
-        }
-    }.catch {
-        emit(NetworkStatus.Error(NetworkException()))
-    }.flowOn(Dispatchers.IO)
+    override suspend fun <T> getSearchBook(searchText: String): Flow<T> {
+        return Pager(
+            config = PagingConfig(pageSize = SIZE, initialLoadSize = SIZE),
+            pagingSourceFactory = {
+                BookPagingSource(searchText, bookApi)
+            }
+        ).flow as Flow<T>
+    }
 }

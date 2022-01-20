@@ -4,28 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.LoadState
 import com.example.presentation.R
 import com.example.presentation.base.BaseNavigationFragment
 import com.example.presentation.databinding.FragmentMainBinding
-import com.example.presentation.view.main.adapter.BookAdapter
+import com.example.presentation.view.main.adapter.BookPagingAdapter
+import com.example.presentation.view.main.adapter.StatusAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseNavigationFragment(R.layout.fragment_main) {
-    lateinit var mainFragmentBinding: FragmentMainBinding
+    private lateinit var mainFragmentBinding: FragmentMainBinding
     private val viewModel: MainViewModel by activityViewModels()
 
-    private var pageNum = 1
-
     @Inject
-    lateinit var bookAdapter: BookAdapter
+    lateinit var pagingAdapter: BookPagingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,34 +43,46 @@ class MainFragment : BaseNavigationFragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainFragmentBinding.recyclerView.adapter = bookAdapter
+
+        mainFragmentBinding.recyclerView.adapter = pagingAdapter.run {
+            addLoadStateListener { states ->
+                if (states.source.refresh is LoadState.Error) {
+                    Toast.makeText(requireContext(), (states.source.refresh as LoadState.Error).error.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            withLoadStateFooter(StatusAdapter(pagingAdapter::retry))
+        }
+
+        mainFragmentBinding.swipeRefreshLayout.setOnRefreshListener {
+            pagingAdapter.refresh()
+            mainFragmentBinding.swipeRefreshLayout.isRefreshing = false
+        }
 
         mainFragmentBinding.searchButton.setOnClickListener {
+            if (viewModel.searchText.value.isEmpty()) {
+                Toast.makeText(requireContext(), "검색어 입력이 필요합니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             lifecycleScope.launch {
-                pageNum = 1
-                viewModel.requestBook(pageNum, PagingType.INITIALIZE)
+                viewModel.requestSearchBook(viewModel.searchText.value)
             }
         }
 
-        mainFragmentBinding.recyclerView.addOnScrollListener(object :
-            RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager)
-                    .findLastCompletelyVisibleItemPosition()
-                val totalCount = recyclerView.adapter!!.itemCount - 1
-
-                if (recyclerView.canScrollVertically(1).not() && lastVisibleItemPosition == totalCount) {
-                    lifecycleScope.launch {
-                        viewModel.requestBook(pageNum++, PagingType.APPEND)
-                    }
-                }
-            }
-        })
-
-        bookAdapter.onClickDetail = {
+        pagingAdapter.onClickDetail = {
             navigate(R.id.actionDetailFragment, bundleOf("position" to it))
+        }
+
+        observe()
+    }
+
+    private fun observe() {
+        lifecycleScope.launch {
+
+            viewModel.searchItem.collectLatest {
+                pagingAdapter.submitData(it)
+            }
         }
     }
 }

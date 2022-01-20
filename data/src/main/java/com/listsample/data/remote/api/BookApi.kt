@@ -1,7 +1,8 @@
-package com.listsample.data.api
+package com.listsample.data.remote.api
 
-import com.listsample.data.model.BookResponse
+import com.listsample.data.remote.model.BookResponse
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface BookApi {

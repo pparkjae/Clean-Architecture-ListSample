@@ -1,6 +1,6 @@
 package com.listsample.data.mapper
 
-import com.listsample.data.model.BookResponse
+import com.listsample.data.remote.model.BookResponse
 import com.listsample.domain.entity.Book
 import com.listsample.domain.entity.DocumentsData
 import com.listsample.domain.entity.MetaData

@@ -12,8 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:showToast="@{vm.resultState}">
+        android:layout_height="match_parent">
 
         <EditText
             android:id="@+id/searchEditText"
@@ -36,46 +35,23 @@
             app:layout_constraintStart_toEndOf="@+id/searchEditText"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            items="@{vm.resultState}"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scrollbars="vertical"
-            app:dividerColor="@{@color/white}"
-            app:dividerHeight="@{@dimen/recycler_divider_height}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchEditText"
-            tools:listitem="@layout/item_book" />
+            app:layout_constraintTop_toBottomOf="@id/searchEditText">
 
-        <ProgressBar
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showProgressBar="@{vm.resultState}" />
-
-        <!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-        <!--            android:id="@+id/swipeRefreshLayout"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/searchEditText">-->
-
-        <!--            <androidx.recyclerview.widget.RecyclerView-->
-        <!--                android:id="@+id/recyclerView"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                items="@{vm.documentsDataList}"-->
-        <!--                android:scrollbars="vertical"-->
-        <!--                app:dividerColor="@{@color/color_f5f5f5}"-->
-        <!--                app:dividerHeight="@{@dimen/recycler_divider_height}"-->
-        <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-        <!--                tools:listitem="@layout/item_book" />-->
-        <!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                app:dividerColor="@{@color/gray}"
+                app:dividerHeight="@{@dimen/recycler_divider_height}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_book" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

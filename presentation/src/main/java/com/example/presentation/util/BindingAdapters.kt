@@ -1,4 +1,4 @@
-package com.example.listsample.util
+package com.example.presentation.util
 
 import android.graphics.Color
 import android.os.Build
@@ -14,7 +14,6 @@ import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -75,13 +74,6 @@ fun View.bindToast(networkStatus: NetworkStatus<Any>) {
         networkStatus.throwable?.message?.let { errorMessage ->
             Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
         }
-    }
-}
-
-@BindingAdapter("items")
-fun <T> RecyclerView.setItems(networkStatus: NetworkStatus<Any>) {
-    if (networkStatus is NetworkStatus.Success) {
-        (adapter as? ListAdapter<T, *>)?.submitList(networkStatus.data as MutableList<T>?)
     }
 }
 

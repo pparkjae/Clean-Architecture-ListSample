@@ -23,190 +23,190 @@
             android:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:scrollbars="vertical"
-            app:layout_constraintTop_toTopOf="parent">
+<!--        <androidx.core.widget.NestedScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:fillViewport="true"-->
+<!--            android:scrollbars="vertical"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
 
-                <TextView
-                    android:id="@+id/detailBookTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="40dp"
-                    android:text="@{`도서 제목 : ` + documentsData.title + `(` + documentsData.status + `)`}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Title" />
+<!--                <TextView-->
+<!--                    android:id="@+id/detailBookTitle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="50dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingHorizontal="40dp"-->
+<!--                    android:text="@{`도서 제목 : ` + documentsData.title + `(` + documentsData.status + `)`}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    tools:text="Title" />-->
 
-                <ImageView
-                    android:id="@+id/detailBookThumb"
-                    imgUrl="@{documentsData.thumbnailUrl}"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailBookTitle" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/detailBookThumb"-->
+<!--                    imgUrl="@{documentsData.thumbnailUrl}"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="150dp"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/detailBookTitle" />-->
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/detailBookLike"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/detailBookThumb"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="@{documentsData.like ? @color/purple_700 : @color/gray}"
-                    android:gravity="center"
-                    tools:text="좋아요"
-                    android:text="좋아요"/>
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                    android:id="@+id/detailBookLike"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/detailBookThumb"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:backgroundTint="@{documentsData.like ? @color/purple_700 : @color/gray}"-->
+<!--                    android:gravity="center"-->
+<!--                    tools:text="좋아요"-->
+<!--                    android:text="좋아요"/>-->
 
-                <TextView
-                    android:id="@+id/detailBookContents"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="40dp"
-                    android:text="@{`도서 소개 : ` + documentsData.contents}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailBookLike"
-                    tools:text="Contents" />
+<!--                <TextView-->
+<!--                    android:id="@+id/detailBookContents"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="50dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingHorizontal="40dp"-->
+<!--                    android:text="@{`도서 소개 : ` + documentsData.contents}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/detailBookLike"-->
+<!--                    tools:text="Contents" />-->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/detailBookUrlLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="40dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailBookContents">
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/detailBookUrlLayout"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginHorizontal="40dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/detailBookContents">-->
 
-                    <TextView
-                        android:id="@+id/detailBookUrlTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="상세 : "
-                        app:layout_constraintEnd_toStartOf="@id/detailBookUrl"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/detailBookUrlTitle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="상세 : "-->
+<!--                        app:layout_constraintEnd_toStartOf="@id/detailBookUrl"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
-                    <TextView
-                        android:id="@+id/detailBookUrl"
-                        linkHtml="@{documentsData.url}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/detailBookUrlTitle"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Link" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/detailBookUrl"-->
+<!--                        linkHtml="@{documentsData.url}"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toEndOf="@id/detailBookUrlTitle"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        tools:text="Link" />-->
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                <TextView
-                    android:id="@+id/detailBookIsbn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="40dp"
-                    android:text="@{`ISBN : ` + documentsData.isbn}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailBookUrlLayout"
-                    tools:text="isbn" />
+<!--                <TextView-->
+<!--                    android:id="@+id/detailBookIsbn"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingHorizontal="40dp"-->
+<!--                    android:text="@{`ISBN : ` + documentsData.isbn}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/detailBookUrlLayout"-->
+<!--                    tools:text="isbn" />-->
 
-                <TextView
-                    android:id="@+id/detailBookDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="40dp"
-                    android:text="@{`도서 출판날짜 : ` + documentsData.datetime}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailBookIsbn"
-                    tools:text="datetime" />
+<!--                <TextView-->
+<!--                    android:id="@+id/detailBookDate"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingHorizontal="40dp"-->
+<!--                    android:text="@{`도서 출판날짜 : ` + documentsData.datetime}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/detailBookIsbn"-->
+<!--                    tools:text="datetime" />-->
 
-                <TextView
-                    android:id="@+id/detailBookAuth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="40dp"
-                    android:text="@{`도서 저자 리스트 : ` + documentsData.authorList}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailBookDate"
-                    tools:text="authorList" />
+<!--                <TextView-->
+<!--                    android:id="@+id/detailBookAuth"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingHorizontal="40dp"-->
+<!--                    android:text="@{`도서 저자 리스트 : ` + documentsData.authorList}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/detailBookDate"-->
+<!--                    tools:text="authorList" />-->
 
-                <TextView
-                    android:id="@+id/detailBookPublisher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="40dp"
-                    android:text="@{`도서 출판사 : ` + documentsData.publisher}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailBookAuth"
-                    tools:text="publisher" />
+<!--                <TextView-->
+<!--                    android:id="@+id/detailBookPublisher"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingHorizontal="40dp"-->
+<!--                    android:text="@{`도서 출판사 : ` + documentsData.publisher}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/detailBookAuth"-->
+<!--                    tools:text="publisher" />-->
 
-                <TextView
-                    android:id="@+id/detailBookTranslators"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="40dp"
-                    android:text="@{`도서 번역자 리스트 : ` + documentsData.translatorList}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailBookPublisher"
-                    tools:text="translators" />
+<!--                <TextView-->
+<!--                    android:id="@+id/detailBookTranslators"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingHorizontal="40dp"-->
+<!--                    android:text="@{`도서 번역자 리스트 : ` + documentsData.translatorList}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/detailBookPublisher"-->
+<!--                    tools:text="translators" />-->
 
-                <TextView
-                    android:id="@+id/detailBookPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="40dp"
-                    android:text="@{`도서 정가 : ` + documentsData.price}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailBookTranslators"
-                    tools:text="Price" />
+<!--                <TextView-->
+<!--                    android:id="@+id/detailBookPrice"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingHorizontal="40dp"-->
+<!--                    android:text="@{`도서 정가 : ` + documentsData.price}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/detailBookTranslators"-->
+<!--                    tools:text="Price" />-->
 
-                <TextView
-                    android:id="@+id/detailBookSalePrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="40dp"
-                    android:text="@{`도서 판매가 : ` + documentsData.salePrice}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailBookPrice"
-                    tools:text="SalePrice" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/detailBookSalePrice"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingHorizontal="40dp"-->
+<!--                    android:text="@{`도서 판매가 : ` + documentsData.salePrice}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/detailBookPrice"-->
+<!--                    tools:text="SalePrice" />-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-        </androidx.core.widget.NestedScrollView>
+<!--        </androidx.core.widget.NestedScrollView>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,7 @@
 package com.example.listsample.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.listsample.data.api.BookApi
+import com.listsample.data.remote.api.BookApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

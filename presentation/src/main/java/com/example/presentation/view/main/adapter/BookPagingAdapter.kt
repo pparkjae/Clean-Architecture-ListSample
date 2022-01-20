@@ -2,15 +2,15 @@ package com.example.presentation.view.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.presentation.databinding.ItemBookBinding
 import com.listsample.domain.entity.DocumentsData
 import javax.inject.Inject
 
-class BookAdapter @Inject constructor() :
-    ListAdapter<DocumentsData, BookAdapter.ViewHolder>(TermsListDiffCallback) {
+class BookPagingAdapter @Inject constructor() :
+    PagingDataAdapter<DocumentsData, BookPagingAdapter.ViewHolder>(bookDiffCallback) {
     var onClickDetail: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,14 +24,12 @@ class BookAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it, position)
+        val documentsData = getItem(position)
+        if (documentsData != null) {
+            holder.bind(documentsData, position)
         }
     }
 
-    /**************************************************************************
-     * view holder
-     **************************************************************************/
     inner class ViewHolder(private val binding: ItemBookBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(documentsData: DocumentsData, position: Int) {
@@ -41,23 +39,23 @@ class BookAdapter @Inject constructor() :
                 root.setOnClickListener {
                     onClickDetail?.invoke(position)
                 }
-
                 executePendingBindings()
             }
         }
     }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
+    companion object {
+        private val bookDiffCallback = object : DiffUtil.ItemCallback<DocumentsData>() {
+            override fun areItemsTheSame(oldItem: DocumentsData, newItem: DocumentsData): Boolean {
+                return oldItem == newItem
+            }
 
-    object TermsListDiffCallback : DiffUtil.ItemCallback<DocumentsData>() {
-        override fun areItemsTheSame(oldItem: DocumentsData, newItem: DocumentsData): Boolean {
-            return oldItem == newItem
-        }
-
-        override fun areContentsTheSame(oldItem: DocumentsData, newItem: DocumentsData): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: DocumentsData,
+                newItem: DocumentsData
+            ): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 }
