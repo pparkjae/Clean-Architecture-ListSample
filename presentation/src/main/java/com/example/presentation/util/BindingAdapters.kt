@@ -1,4 +1,4 @@
-package com.example.listsample.util
+package com.example.presentation.util
 
 import android.graphics.Color
 import android.os.Build
@@ -81,7 +81,7 @@ fun View.bindToast(networkStatus: NetworkStatus<Any>) {
 @BindingAdapter("items")
 fun <T> RecyclerView.setItems(networkStatus: NetworkStatus<Any>) {
     if (networkStatus is NetworkStatus.Success) {
-        (adapter as? ListAdapter<T, *>)?.submitList(networkStatus.data as MutableList<T>?)
+        (adapter as? ListAdapter<T, *>)?.submitList((networkStatus.data as MutableList<T>?)?.toMutableList())
     }
 }
 
